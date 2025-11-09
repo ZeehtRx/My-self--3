@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{{ name }} — Portofolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <!-- ✅ Animasi Pembuka Selamat Datang -->
+<div id="welcome-screen">
+  <div class="welcome-content">
+    <h1>Halo,</h1>
+    <p>Selamat datang di portofolio saya.</p>
+  </div>
+</div>
+    <!-- ✅ Animasi Latar Belakang -->
+  <canvas id="bg-animation"></canvas>
+  <!-- Toggle Dark Mode -->
+  <button id="theme-toggle" aria-label="Toggle dark mode">
+    <i class="fas fa-moon"></i>
+  </button>
+
+  <div class="container">
+    <header class="hero scroll-in">
+      <div class="profile">
+        <img src="{{ url_for('static', filename='img/profile.jpg') }}" alt="Foto Profil">
+      </div>
+      <h1>{{ name }}</h1>
+      <p class="role">{{ role }}</p>
+      <p class="bio">{{ bio }}</p>
+
+<!-- Badge Teknologi dengan Ikon & Warna -->
+<div class="tech-badges scroll-in">
+  {% for tech in tech_stack %}
+    <span class="badge" style="--icon-color: {{ tech.color }};">
+      <i class="{{ tech.icon }}"></i> {{ tech.name }}
+    </span>
+  {% endfor %}
+</div>
+
+      <div class="contact-buttons">
+  <a href="{{ instagram_url }}" target="_blank" class="btn btn-outline">
+    <i class="fab fa-instagram"></i> Instagram
+  </a>
+  <a href="{{ github_url }}" target="_blank" class="btn btn-primary">
+    <i class="fab fa-github"></i>&nbsp; GitHub
+  </a>
+</div>
+    </header>
+
+    <main>
+      <section class="card scroll-in">
+        <h2>Pencapaian</h2>
+        <ul>
+          {% for item in achievements %}
+            <li>{{ item }}</li>
+          {% endfor %}
+        </ul>
+      </section>
+
+      <section class="card scroll-in">
+        <h2>Tujuan ke Depan</h2>
+        <ul>
+          {% for goal in goals %}
+            <li>{{ goal }}</li>
+          {% endfor %}
+        </ul>
+      </section>
+
+      <!-- Bagian Sertifikasi -->
+      <section class="card scroll-in">
+        <h2>Sertifikasi</h2>
+        <div class="cert-grid">
+          {% for cert in certifications %}
+  <div class="cert-item" onclick="openModal('{{ url_for('static', filename='img/certs/' + cert) }}')">
+    <img src="{{ url_for('static', filename='img/certs/' + cert) }}" alt="Sertifikat">
+  </div>
+{% endfor %}
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- untuk tampilkan gambar besar -->
+  <div id="image-modal" class="modal">
+    <span class="close-btn">&times;</span>
+    <img class="modal-content" id="modal-image">
+  </div>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
